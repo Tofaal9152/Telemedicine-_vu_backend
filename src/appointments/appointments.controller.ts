@@ -27,6 +27,7 @@ export class AppointmentsController {
     @Body() appointmentDto: CreateAppointmentDto,
     @Request() req: { user: { id: string } },
   ) {
+    console.log(Request)
     return this.appointmentsService.appointmentsService(
       appointmentDto,
       req.user.id,
@@ -40,6 +41,7 @@ export class AppointmentsController {
     @Res() res: Response,
   ) {
     const result = await this.appointmentsService.appointmentsSuccess(tranId);
+    console.log('result', result);
     return res.redirect(result.redirectUrl);
   }
 
@@ -50,6 +52,7 @@ export class AppointmentsController {
     @Res() res: Response,
   ) {
     const result = await this.appointmentsService.appointmentsFail(tranId);
+    console.log('result', result);
     return res.redirect(result.redirectUrl);
   }
 
@@ -60,6 +63,7 @@ export class AppointmentsController {
     @Res() res: Response,
   ) {
     const result = await this.appointmentsService.appointmentsCancel(tranId);
+    console.log('result', result);
     return res.redirect(result.redirectUrl);
   }
 

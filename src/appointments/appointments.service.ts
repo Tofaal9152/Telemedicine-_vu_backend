@@ -17,8 +17,9 @@ export class AppointmentsService {
   async appointmentsService(
     appointmentDto: CreateAppointmentDto,
     userId: string,
+    
   ) {
-    console.log(userId, appointmentDto);
+    // console.log(userId, appointmentDto);
     // / Find the patient (based on the logged-in user's ID)
     const patient = await this.prisma.patient.findUnique({
       where: { userId: userId },
@@ -63,10 +64,10 @@ export class AppointmentsService {
       total_amount: doctor?.visitFee || 0,
       currency: 'BDT',
       tran_id: tran_id,
-      success_url: `${process.env.FRONTEND_URL}/appointments/payment/success/${tran_id}`,
-      fail_url: `${process.env.FRONTEND_URL}/appointments/payment/fail/${tran_id}`,
-      cancel_url: `${process.env.FRONTEND_URL}/appointments/payment/cancel/${tran_id}`,
-      ipn_url: `${process.env.FRONTEND_URL}/ipn`,
+      success_url: `${process.env.BASE_URL}/appointments/payment/success/${tran_id}`,
+      fail_url: `${process.env.BASE_URL}/appointments/payment/fail/${tran_id}`,
+      cancel_url: `${process.env.BASE_URL}/appointments/payment/cancel/${tran_id}`,
+      ipn_url: `${process.env.BASE_URL}/ipn`,
       shipping_method: 'Courier',
       product_name: 'Computer.',
       product_category: 'Electronic',
@@ -89,12 +90,12 @@ export class AppointmentsService {
       ship_postcode: 1000,
       ship_country: 'Bangladesh',
     };
-    console.log(store_id, store_passwd, is_live);
+    // console.log(store_id, store_passwd, is_live);
 
     const sslcz = new SSLCommerzPayment(store_id, store_passwd, is_live);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const apiResponse = await sslcz.init(data);
-    console.log('SSLCommerz API response:', apiResponse);
+    // console.log('SSLCommerz API response:', apiResponse);
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const GatewayPageURL = apiResponse.GatewayPageURL;
